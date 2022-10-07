@@ -36,6 +36,12 @@ app.use("/admin", authRoutes);
 const editRoutes = require("./routes/edit.routes");
 app.use("/edit", editRoutes);
 
+const contactRoutes = require("./routes/contact.routes");
+app.use("/contact", contactRoutes);
+
+const blogRoutes = require("./routes/blog.routes");
+app.use("/blog", blogRoutes);
+
 
 // Start Server
 
