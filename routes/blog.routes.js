@@ -2,16 +2,19 @@ const express = require("express");
 const router = express.Router();
 const Blog = require("../models/Blog.model");
 const { isAuthenticated } = require("../middleware/jwt.middleware");
+const uploadCloud = require("../config/cloudinary.config")
 
 // Edit Contact Info
-router.post("/", (req, res) =>{
+router.post("/", uploadCloud.single("image"), (req, res) =>{
     console.log("Creating New Blog Post")
     const 
         {author,
         message,
         subject} = req.body;
 
-    Blog.create({author, subject, message })
+    const image = req.file.path;
+
+    Blog.create({author, subject, message, image })
         .then(response => {console.log(response)
         res.status(200).json("New Blog Posted")})
         .catch(err => console.log(err))
@@ -28,27 +31,30 @@ router.get("/", (req, res) =>{
         .catch(err => console.log(err))
     })
 
-    router.post("/edit", (req, res) =>{
+    router.post("/edit", uploadCloud.single("image"), (req, res) =>{
         console.log("Editing Blog Post")
+
         const 
             {author,
             message,
             subject,
             id} = req.body;
+
+        const image = req.file ? req.file.path : ""
+
           
     
-        Blog.findByIdAndUpdate({_id : id}, {author, subject, message })
+        Blog.findByIdAndUpdate({_id : id}, {author, subject, message, image })
             .then(response => {console.log(response)
             res.status(200).json("Blog Updated")})
             .catch(err => console.log(err))
     
     })
 
-    router.delete("/delete", (req, res) =>{
-        console.log("Deleting Blog Post")
-        const {id} = req.body
-        console.log(req.body)
-    
+    router.delete("/:id", (req, res) =>{
+        console.log("Deleting Blog Post ")
+        const {id} = req.params
+
         Blog.findByIdAndDelete({_id : id})
             .then(response => {console.log(response)
             res.status(200).json("Blog Deleted")})
