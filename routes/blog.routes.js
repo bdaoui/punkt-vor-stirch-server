@@ -31,20 +31,29 @@ router.get("/", (req, res) =>{
         .catch(err => console.log(err))
     })
 
-    router.post("/edit", uploadCloud.single("image"), (req, res) =>{
-        console.log("Editing Blog Post")
-
+router.post("/edit", uploadCloud.single("image"), (req, res) =>{
+        console.log("Editing Blog Post ")
         const 
             {author,
             message,
             subject,
             id} = req.body;
-
+        
         const image = req.file ? req.file.path : ""
 
-          
-    
-        Blog.findByIdAndUpdate({_id : id}, {author, subject, message, image })
+        // Needed to verify if we have data coming for that field, otherwise the field will be empty
+
+        let verifiedImage, verifiedAuthor, verifiedMessage, verifiedSubject;
+
+
+        if (image){ verifiedImage = image};
+        if (author){ verifiedAuthor = author};
+        if (message){ verifiedMessage = message};
+        if (subject){ verifiedSubject = subject};
+
+        console.log(verifiedImage, verifiedAuthor, verifiedMessage, verifiedSubject)
+
+        Blog.findByIdAndUpdate({_id : id}, {author: verifiedAuthor, subject: verifiedSubject, message : verifiedMessage, image : verifiedImage })
             .then(response => {console.log(response)
             res.status(200).json("Blog Updated")})
             .catch(err => console.log(err))
