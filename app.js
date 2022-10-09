@@ -30,6 +30,9 @@ app.use("/edit", editRoutes);
 const contactRoutes = require("./routes/contact.routes");
 app.use("/contact", contactRoutes);
 
+const dashboardRoutes = require("./routes/dashboard.routes");
+app.use("/dashboard", dashboardRoutes);
+
 const blogRoutes = require("./routes/blog.routes");
 app.use("/blog", blogRoutes);
 

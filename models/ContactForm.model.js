@@ -6,7 +6,13 @@ const contactFormSchema = new Schema({
     email: String,
     phone: String,
     subject: String,
-    message: String
+    message: String,
+    status: {
+        type: String,
+        enum:["unread","read","resolved","unresolved","important"],
+        required: true,
+        default: "unread"
+    }
 })
 
 const ContactForm = model("ContactForm", contactFormSchema)
