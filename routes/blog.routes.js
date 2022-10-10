@@ -51,7 +51,6 @@ router.post("/edit", uploadCloud.single("image"), (req, res) =>{
         if (message){ verifiedMessage = message};
         if (subject){ verifiedSubject = subject};
 
-        console.log(verifiedImage, verifiedAuthor, verifiedMessage, verifiedSubject)
 
         Blog.findByIdAndUpdate({_id : id}, {author: verifiedAuthor, subject: verifiedSubject, message : verifiedMessage, image : verifiedImage })
             .then(response => {console.log(response)

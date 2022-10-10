@@ -62,4 +62,15 @@ router.post("/edit", (req, res) => {
     .catch((err) => console.log(err));
 });
 
+
+router.delete( "/:id", (req, res) => {
+    console.log( "Deleting Message ", id, " Now")
+    const {id} = req.params
+
+    ContactForm.findByIdAndDelete(id)
+        .then(response => res.status(200).json("message deleted") )
+})
+
+
+
 module.exports = router;

@@ -9,7 +9,7 @@ const contactFormSchema = new Schema({
     message: String,
     status: {
         type: String,
-        enum:["unread", "" ,"read","resolved","unresolved","important"],
+        enum:["unread","read","resolved","unresolved","important"],
         required: true,
         default: "unread"
     }
