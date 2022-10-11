@@ -5,7 +5,10 @@ const contactFormSchema = new Schema({
     lastName: String,
     email: String,
     phone: String,
-    subject: String,
+    subject: {
+        type : String,
+        maxLength : 250
+    },
     message: String,
     status: {
         type: String,
