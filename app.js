@@ -27,6 +27,9 @@ app.use("/admin", authRoutes);
 const editRoutes = require("./routes/edit.routes");
 app.use("/edit", editRoutes);
 
+const teamRoutes = require("./routes/team.routes");
+app.use("/team", teamRoutes);
+
 const contactRoutes = require("./routes/contact.routes");
 app.use("/contact", contactRoutes);
 
